@@ -1,8 +1,8 @@
 import http from 'k6/http';
-const {base_url_k6} = require('../TestData/data.js');
+const {BASE_URL} = require('../TestData/reqres_test_data.js');
 
 export default function () {
-  const url = base_url_k6 + '/login';
+  const url = BASE_URL + '/login';
   const payload = JSON.stringify({
     email: __ENV.EMAIL,
     password: __ENV.PASSWORD,
@@ -14,6 +14,7 @@ export default function () {
     },
   };
 
-  http.post(url, payload, params);
-  console.log(`payload: ${payload}`);
+  let response = http.post(url, payload, params);
+  console.log(`Payload: ${payload}`);
+  console.log(`Resource: ${response.body}`);
 }
